@@ -5,6 +5,7 @@ import { Context } from "../store/appContext";
 
 export const AddContact = () => {
 	const [data, setData] = useState();
+	const { store, actions } = useContext(Context);
 
 	const nuevosDatos = e => {
 		e.preventDefault();
@@ -25,6 +26,16 @@ export const AddContact = () => {
 			})
 			.then(data => {
 				console.log(data);
+				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Agenda_de_jose_lorant")
+					.then(res => {
+						console.log(res.status);
+						console.log(res.text);
+						return res.json();
+					})
+					.then(data => {
+						actions.agregarContact(data);
+					})
+					.catch(error => console.error("error ", error));
 			})
 			.catch(error => {
 				console.error("error ", error);
@@ -43,7 +54,12 @@ export const AddContact = () => {
 		<div className="container">
 			<div>
 				<h1 className="text-center mt-5">Add a new contact</h1>
-				<form onSubmit={nuevosDatos}>
+				<form
+					onSubmit={e => {
+						nuevosDatos(e);
+						const mensaje = "Felicidades Se Agrego Con Exito!!! vuelva a la pantalla principal";
+						alert(mensaje);
+					}}>
 					<div className="form-group">
 						<label>Full Name</label>
 						<input
@@ -121,22 +137,20 @@ export const EditContact = props => {
 			})
 			.then(data => {
 				console.log(data);
+				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Agenda_de_jose_lorant")
+					.then(res => {
+						console.log(res.status);
+						console.log(res.text);
+						return res.json();
+					})
+					.then(data => {
+						actions.agregarContact(data);
+					})
+					.catch(error => console.error("error ", error));
 			})
 			.catch(error => {
 				console.error("error ", error);
 			});
-
-		fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Agenda_de_jose_lorant")
-			.then(res => {
-				console.log(res.status);
-				console.log(res.text);
-				return res.json();
-			})
-			.then(data => {
-				actions.agregarContact(data);
-				console.log(data, "hola esto es lo q esta recibiendo");
-			})
-			.catch(error => console.error("error ", error));
 		e.preventDefault();
 		console.log("listo");
 	};
@@ -153,7 +167,12 @@ export const EditContact = props => {
 			{data == undefined ? null : (
 				<div>
 					<h1 className="text-center mt-5">Edit your contact</h1>
-					<form onSubmit={enviardatos}>
+					<form
+						onSubmit={e => {
+							enviardatos(e);
+							const mensaje = "Felicidades Se Edito Con Exito!!! vuelva a la pantalla principal";
+							alert(mensaje);
+						}}>
 						<div className="form-group">
 							<label>Full Name</label>
 							<input

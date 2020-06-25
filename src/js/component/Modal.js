@@ -14,10 +14,20 @@ export const Modal = props => {
 			method: "DELETE"
 		})
 			.then(res => res.json())
-			.then(res => console.log(res))
+			.then(res => {
+				console.log(res);
+				fetch("https://assets.breatheco.de/apis/fake/contact/agenda/Agenda_de_jose_lorant")
+					.then(res => {
+						console.log(res.status);
+						console.log(res.text);
+						return res.json();
+					})
+					.then(data => {
+						actions.agregarContact(data);
+					})
+					.catch(error => console.error("error ", error));
+			})
 			.catch(error => console.error(error));
-		actions.getFetchContact();
-		console.log(actions.getFetchContact());
 		props.onClose();
 	};
 
@@ -50,7 +60,11 @@ export const Modal = props => {
 						<button
 							type="button"
 							className="btn btn-secondary"
-							onClick={deleteFetchApi}
+							onClick={() => {
+								deleteFetchApi();
+								const mensaje = "Felicidades Se Borro Con Exito!!!";
+								alert(mensaje);
+							}}
 							data-dismiss="modal">
 							Do it!
 						</button>

@@ -10,7 +10,7 @@ export const Contacts = () => {
 		showModal: false
 	});
 	const { store, actios } = useContext(Context);
-	console.log("azul");
+
 	return (
 		<div className="container">
 			<div>

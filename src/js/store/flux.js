@@ -12,6 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						console.log(res.status);
 						console.log(res.text);
 						return res.json();
+						console.log("se devolvio");
 					})
 					.then(data => setStore({ contacto: data }))
 					.catch(error => console.error("error ", error));
